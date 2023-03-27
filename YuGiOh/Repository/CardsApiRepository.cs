@@ -55,12 +55,6 @@ namespace YuGiOh.Repository
 
                         cards.Add(card);
                     }
-                    //Card card = new Card(); 
-                    //card.ImageUrl = JsonConvert.DeserializeObject<JObject>(json).SelectToken("image").Value<string>();
-                    //card.Value = JsonConvert.DeserializeObject<JObject>(json).SelectToken("value").Value<string>();
-                    //card.Suit = JsonConvert.DeserializeObject<JObject>(json).SelectToken("suit").Value<string>();
-
-                    //return card;
                 }
                 catch (Exception ex)
                 {
