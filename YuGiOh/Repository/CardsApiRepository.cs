@@ -39,12 +39,12 @@ namespace YuGiOh.Repository
                     {
                         BasicCard card;
                         // check what type of cards we need to create
-                        string test = token.SelectToken("frameType").Value<string>();
-                        if (test == "spell" || test == "trap")
+                        string frameType = token.SelectToken("frameType").Value<string>();
+                        if (frameType == "spell" || frameType == "trap")
                         {
                             card = token.ToObject<SpellTrapCard>();
                         }
-                        else if (test == "skill")
+                        else if (frameType == "skill")
                         {
                             continue;
                         }

@@ -29,8 +29,16 @@ namespace YuGiOh.Model
         [JsonProperty(PropertyName = "archetype")]
         public string Archetype { get; set; }
 
+        
+        [JsonProperty(PropertyName = "card_images")]
+        public ImageInfo[] ImageInfoArray { get; set; }
+        
+
+    }
+
+    public class ImageInfo
+    {
         [JsonProperty(PropertyName = "image_url")]
         public string ImageUrl { get; set; } // normal image
-
     }
 }
