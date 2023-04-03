@@ -15,10 +15,14 @@ namespace YuGiOh.Repository
     {
         private string _endPoint = "https://db.ygoprodeck.com/api/v7/cardinfo.php";
 
+        private List<BasicCard> _cards;
 
         public async Task<List<BasicCard>> GetCardsAsync()
         {
-            List<BasicCard> cards = new List<BasicCard>();
+            if (_cards != null)
+                return _cards;
+
+            _cards = new List<BasicCard>();
 
             using (HttpClient client = new HttpClient())
             {
@@ -53,7 +57,7 @@ namespace YuGiOh.Repository
                             card = token.ToObject<MonsterCard>();
                         }
 
-                        cards.Add(card);
+                        _cards.Add(card);
                     }
                 }
                 catch (Exception ex)
@@ -63,7 +67,32 @@ namespace YuGiOh.Repository
 
             }
 
-            return cards;
+            return _cards;
+        }
+
+        public async Task<List<string>> GetCardTypes()
+        {
+            List<string> types = new List<string>();
+
+            var cards = await GetCardsAsync();
+
+            foreach (var card in cards)
+            {
+                bool foundString = false;
+                foreach (var typing in types) 
+                { 
+                    if (typing.Equals(card.CardType))
+                    {
+                        foundString = true;
+                        break;
+                    }
+                }
+
+                if (!foundString)
+                    types.Add(card.CardType);
+            }
+
+            return types;
         }
     }
 }

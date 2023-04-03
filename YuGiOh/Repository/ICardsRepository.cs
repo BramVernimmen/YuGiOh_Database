@@ -10,5 +10,7 @@ namespace YuGiOh.Repository
     public interface ICardsRepository
     { 
         Task<List<BasicCard>> GetCardsAsync();
+
+        Task<List<string>> GetCardTypes();
     }
 }
