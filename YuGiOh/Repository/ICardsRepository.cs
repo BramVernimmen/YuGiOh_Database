@@ -12,5 +12,7 @@ namespace YuGiOh.Repository
         Task<List<BasicCard>> GetCardsAsync();
 
         Task<List<string>> GetCardTypes();
+
+        Task<List<BasicCard>> GetCardsOfType(string type);
     }
 }

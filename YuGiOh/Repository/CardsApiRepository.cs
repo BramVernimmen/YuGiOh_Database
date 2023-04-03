@@ -76,6 +76,8 @@ namespace YuGiOh.Repository
 
             var cards = await GetCardsAsync();
 
+            types.Add("Select Type");
+
             foreach (var card in cards)
             {
                 bool foundString = false;
@@ -93,6 +95,24 @@ namespace YuGiOh.Repository
             }
 
             return types;
+        }
+
+        public async Task<List<BasicCard>> GetCardsOfType(string type)
+        {
+            List<BasicCard> cardsOfType = new List<BasicCard>();
+
+            var allCards = await GetCardsAsync();
+
+            if (type.Equals("Select Type"))
+                return allCards;
+
+            foreach (var card in allCards) 
+            { 
+                if (card.CardType == type)
+                    cardsOfType.Add(card);
+            }
+
+            return cardsOfType;
         }
     }
 }

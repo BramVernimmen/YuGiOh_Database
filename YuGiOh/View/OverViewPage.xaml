@@ -31,7 +31,7 @@
         <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical">
 
             <TextBlock  Text="test"  Foreground="#DDDDDD" FontSize="20" HorizontalAlignment="Center" />
-            <ComboBox ItemsSource="{Binding CardTypes}" />
+            <ComboBox Margin="10"  ItemsSource="{Binding CardTypes}" SelectedItem="{Binding SelectedType}" />
 
         </StackPanel>
         

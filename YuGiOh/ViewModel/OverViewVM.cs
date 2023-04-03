@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +34,23 @@ namespace YuGiOh.ViewModel
             }
         }
 
+        private string _selectedType;
+        public string SelectedType
+        { 
+            get { return _selectedType; }
+            set
+            {
+                _selectedType = value;
+                GetCardsOfTypeAsync();
+                OnPropertyChanged(nameof(SelectedType));
+            }
+        }
+
+        private async void GetCardsOfTypeAsync()
+        {
+            Cards = await CardsApiRepository.GetCardsOfType(SelectedType);
+        }
+
 
 
         public ICardsRepository CardsApiRepository { get; set; } = new CardsApiRepository();
@@ -47,6 +65,8 @@ namespace YuGiOh.ViewModel
         {
             Cards = await CardsApiRepository.GetCardsAsync();
             CardTypes = await CardsApiRepository.GetCardTypes();
+            SelectedType = "Select Type";
+
         }
     }
 }
