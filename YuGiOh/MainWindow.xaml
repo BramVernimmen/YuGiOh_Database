@@ -6,11 +6,20 @@
         xmlns:vm="clr-namespace:YuGiOh.ViewModel"
         xmlns:local="clr-namespace:YuGiOh"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="1000" Width="600">
     <Window.DataContext>
         <vm:MainViewModel />
     </Window.DataContext>
     <Grid>
-        
+        <ListBox Background="LightCoral" ItemsSource="{Binding Cards}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal" Height="240">
+                        <Image  Margin="4" Source="{Binding DisplayImageUrl}"/>
+                        <TextBlock Text="{Binding Name}" Margin="10,0" Foreground="Black" VerticalAlignment="Center" FontSize="21" TextWrapping="WrapWithOverflow" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
 </Window>

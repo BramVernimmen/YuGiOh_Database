@@ -32,13 +32,20 @@ namespace YuGiOh.Model
         
         [JsonProperty(PropertyName = "card_images")]
         public ImageInfo[] ImageInfoArray { get; set; }
-        
 
+
+        [JsonIgnore]
+        public string DisplayImageUrl { get { return ImageInfoArray[0].ImageUrlSmall; } }
+
+        
     }
 
     public class ImageInfo
     {
         [JsonProperty(PropertyName = "image_url")]
         public string ImageUrl { get; set; } // normal image
+
+        [JsonProperty(PropertyName = "image_url_small")]
+        public string ImageUrlSmall { get; set; } // small image
     }
 }
