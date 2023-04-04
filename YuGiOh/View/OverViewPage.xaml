@@ -30,17 +30,15 @@
 
         <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical">
 
-            <TextBlock  Text="test"  Foreground="#DDDDDD" FontSize="20" HorizontalAlignment="Center" />
+            <TextBlock  Text="Filter Type"  Foreground="#DDDDDD" FontSize="20" HorizontalAlignment="Center" />
             <ComboBox Margin="10"  ItemsSource="{Binding CardTypes}" SelectedItem="{Binding SelectedType}" />
 
         </StackPanel>
         
         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical">
 
-            <TextBlock  Text="test"  Foreground="#DDDDDD" FontSize="20" HorizontalAlignment="Center" />
-            <Button Margin="2" HorizontalAlignment="Center" Height="auto">
-                <TextBlock Text="button" Foreground="#202020" FontSize="16" />
-            </Button>
+            <TextBlock  Text="Filter Archetype"  Foreground="#DDDDDD" FontSize="20" HorizontalAlignment="Center" />
+            <ComboBox Margin="10"  ItemsSource="{Binding ArcheTypes}" SelectedItem="{Binding SelectedArcheType}" />
         </StackPanel>
 
 
@@ -59,6 +57,9 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
+        <TextBlock Grid.Row="2" Grid.ColumnSpan="2" Background="#151515" Foreground="#DDDDDD" FontSize="26"
+                   Text="No Cards Found" VerticalAlignment="Center" HorizontalAlignment="Center"
+                   Visibility="Visible" />
 
     </Grid>
 </Page>

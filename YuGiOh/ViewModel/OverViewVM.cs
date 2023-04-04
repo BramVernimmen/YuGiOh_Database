@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using YuGiOh.Model;
 using YuGiOh.Repository;
 
@@ -24,6 +25,8 @@ namespace YuGiOh.ViewModel
         }
 
 
+
+
         private List<string> _cardTypes;
         public List<string> CardTypes {
             get { return _cardTypes; }
@@ -41,17 +44,47 @@ namespace YuGiOh.ViewModel
             set
             {
                 _selectedType = value;
-                GetCardsOfTypeAsync();
+                GetFilteredCardsAsync();
                 OnPropertyChanged(nameof(SelectedType));
             }
         }
 
-        private async void GetCardsOfTypeAsync()
+       
+
+
+        private List<string> _archeTypes;
+        public List<string> ArcheTypes
         {
-            Cards = await CardsApiRepository.GetCardsOfType(SelectedType);
+            get { return _archeTypes; }
+            set
+            {
+                _archeTypes = value;
+                OnPropertyChanged(nameof(ArcheTypes));
+            }
+        }
+
+        private string _selectedArcheType;
+        public string SelectedArcheType
+        {
+            get { return _selectedArcheType; }
+            set
+            {
+                _selectedArcheType = value;
+                GetFilteredCardsAsync();
+                OnPropertyChanged(nameof(SelectedArcheType));
+            }
         }
 
 
+
+
+        private async void GetFilteredCardsAsync()
+        {
+            var cardsTypes = await CardsApiRepository.GetCardsOfType(SelectedType);
+            var cardsArcheTypes = await CardsApiRepository.GetCardsFromArcheType(SelectedArcheType);
+
+            Cards = cardsTypes.Intersect(cardsArcheTypes).ToList();
+        }
 
         public ICardsRepository CardsApiRepository { get; set; } = new CardsApiRepository();
 
@@ -65,7 +98,18 @@ namespace YuGiOh.ViewModel
         {
             Cards = await CardsApiRepository.GetCardsAsync();
             CardTypes = await CardsApiRepository.GetCardTypes();
+            ArcheTypes = await CardsApiRepository.GetArcheTypes();
+
+            // first set the fields
+            _selectedType = "Select Type";
+            _selectedArcheType = "Select Archetype";
+
+            // then set the props
             SelectedType = "Select Type";
+            SelectedArcheType = "Select Archetype";
+            // setting these will call a function
+            // that function uses the fields as filter
+            // if we hadn't set the fields first, null errors will be given
 
         }
     }

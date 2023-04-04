@@ -14,5 +14,9 @@ namespace YuGiOh.Repository
         Task<List<string>> GetCardTypes();
 
         Task<List<BasicCard>> GetCardsOfType(string type);
+
+        Task<List<string>> GetArcheTypes();
+        Task<List<BasicCard>> GetCardsFromArcheType(string archetype);
+
     }
 }

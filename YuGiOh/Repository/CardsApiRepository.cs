@@ -57,6 +57,9 @@ namespace YuGiOh.Repository
                             card = token.ToObject<MonsterCard>();
                         }
 
+                        if (card.Archetype == null)
+                            card.Archetype = "N/A";
+
                         _cards.Add(card);
                     }
                 }
@@ -76,8 +79,6 @@ namespace YuGiOh.Repository
 
             var cards = await GetCardsAsync();
 
-            types.Add("Select Type");
-
             foreach (var card in cards)
             {
                 bool foundString = false;
@@ -93,6 +94,9 @@ namespace YuGiOh.Repository
                 if (!foundString)
                     types.Add(card.CardType);
             }
+
+            types.Sort();
+            types.Insert(0, "Select Type");
 
             return types;
         }
@@ -113,6 +117,52 @@ namespace YuGiOh.Repository
             }
 
             return cardsOfType;
+        }
+
+        public async Task<List<string>> GetArcheTypes()
+        {
+            List<string> archetypes = new List<string>();
+
+            var cards = await GetCardsAsync();
+
+            foreach (var card in cards)
+            {
+                bool foundString = false;
+                foreach (var currArchetype in archetypes)
+                {
+                    if (currArchetype.Equals(card.Archetype))
+                    {
+                        foundString = true;
+                        break;
+                    }
+                }
+
+                if (!foundString)
+                    archetypes.Add(card.Archetype);
+            }
+
+            archetypes.Sort();
+            archetypes.Insert(0, "Select Archetype");
+
+            return archetypes;
+        }
+
+        public async Task<List<BasicCard>> GetCardsFromArcheType(string type)
+        {
+            List<BasicCard> cardsOfArcheType = new List<BasicCard>();
+
+            var allCards = await GetCardsAsync();
+
+            if (type.Equals("Select Archetype"))
+                return allCards;
+
+            foreach (var card in allCards)
+            {
+                if (card.Archetype == type)
+                    cardsOfArcheType.Add(card);
+            }
+
+            return cardsOfArcheType;
         }
     }
 }
