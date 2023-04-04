@@ -90,6 +90,7 @@
     <Compile Include="Repository\ICardsRepository.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\OverViewVM.cs" />
+    <Compile Include="View\Converters\NullToInvisibleConverter.cs" />
     <Compile Include="View\OverViewPage.xaml.cs">
       <DependentUpon>OverViewPage.xaml</DependentUpon>
     </Compile>

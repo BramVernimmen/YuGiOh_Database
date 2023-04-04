@@ -5,20 +5,24 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:YuGiOh.View"
       xmlns:vm="clr-namespace:YuGiOh.ViewModel"
+      xmlns:conv="clr-namespace:YuGiOh.View.Converters"
       mc:Ignorable="d" 
-      d:DesignHeight="725" d:DesignWidth="600"
+      d:DesignHeight="770" d:DesignWidth="700"
       Title="OverViewPage">
 
     <Page.DataContext>
         <vm:OverViewVM />
     </Page.DataContext>
+    <Page.Resources>
+        <conv:NullToInvisibleConverter x:Key="ShowIfEmpty" />
+        <SolidColorBrush x:Key="TextColor" Color="#DDDDDD" />
+    </Page.Resources>
     
-    
-    <Grid ShowGridLines="True" Background="#202020">
+    <Grid ShowGridLines="False" Background="#202020">
         <Grid.RowDefinitions>
             <RowDefinition Height="100*"/>
             <RowDefinition Height="75*"/>
-            <RowDefinition Height="495*"/>
+            <RowDefinition Height="525*"/>
             <RowDefinition Height="50*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -30,36 +34,75 @@
 
         <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical">
 
-            <TextBlock  Text="Filter Type"  Foreground="#DDDDDD" FontSize="20" HorizontalAlignment="Center" />
-            <ComboBox Margin="10"  ItemsSource="{Binding CardTypes}" SelectedItem="{Binding SelectedType}" />
+            <TextBlock  Text="Filter Type"  Foreground="{StaticResource TextColor}" FontSize="20" HorizontalAlignment="Center" />
+            <ComboBox Margin="10" FontSize="15"  ItemsSource="{Binding CardTypes}" SelectedItem="{Binding SelectedType}" />
 
         </StackPanel>
         
         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical">
 
-            <TextBlock  Text="Filter Archetype"  Foreground="#DDDDDD" FontSize="20" HorizontalAlignment="Center" />
-            <ComboBox Margin="10"  ItemsSource="{Binding ArcheTypes}" SelectedItem="{Binding SelectedArcheType}" />
+            <TextBlock  Text="Filter Archetype"  Foreground="{StaticResource TextColor}" FontSize="20" HorizontalAlignment="Center" />
+            <ComboBox Margin="10"  FontSize="15"  ItemsSource="{Binding ArcheTypes}" SelectedItem="{Binding SelectedArcheType}" />
         </StackPanel>
 
 
-        <ListBox Grid.Row="2" Grid.ColumnSpan="2" Background="#151515" ItemsSource="{Binding Cards}">
+        <ListBox Grid.Row="2" Grid.ColumnSpan="2" Background="#151515" ItemsSource="{Binding Cards}" 
+                 BorderThickness="2" x:Name="listBox" ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                 Margin="10">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Grid ShowGridLines="True" Margin="10,0" MaxHeight="480">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <Image Grid.Column="0" Margin="5" Source="{Binding DisplayImageUrl}" MaxHeight="150" />
-                        <TextBlock Grid.Column="1" Text="{Binding Name}" Margin="10,0" Foreground="#DDDDDD" VerticalAlignment="Center" FontSize="21" TextWrapping="WrapWithOverflow" />
+                    <Grid ShowGridLines="False" Margin="-10,0" MaxHeight="480" >
+                        <StackPanel Orientation="Horizontal" Width="{Binding ElementName=listBox,Path=ActualWidth}" >
+                            
+                        
+                        <Image Grid.Column="0" Margin="10,5,10,10" Source="{Binding DisplayImageUrl}" MaxHeight="150" />
+                        <TextBlock Grid.Column="1" Text="{Binding Name}" Margin="10,0" Foreground="{StaticResource TextColor}" 
+                                   VerticalAlignment="Center" FontSize="21" TextWrapping="WrapWithOverflow" />
+                        </StackPanel>
+                        <Rectangle Fill="{StaticResource TextColor}" Height="2" VerticalAlignment="Bottom" />
                     </Grid>
+                    <!--<Grid ShowGridLines="False" Margin="10,0" MaxHeight="480" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="{Binding ElementName=test,Path=ActualWidth}" />
+                        </Grid.ColumnDefinitions>
+                        
+                        <Image Grid.Column="0" Margin="5" Source="{Binding DisplayImageUrl}" MaxHeight="150" />
+                        <TextBlock Grid.Column="1" Text="{Binding Name}" Margin="10,0" Foreground="{StaticResource TextColor}" 
+                                   VerticalAlignment="Center" FontSize="21" TextWrapping="WrapWithOverflow" />
+                    </Grid>-->
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <TextBlock Grid.Row="2" Grid.ColumnSpan="2" Background="#151515" Foreground="#DDDDDD" FontSize="26"
+        <TextBlock Grid.Row="2" Grid.ColumnSpan="2" Background="#151515" Foreground="{StaticResource TextColor}" FontSize="45"
                    Text="No Cards Found" VerticalAlignment="Center" HorizontalAlignment="Center"
-                   Visibility="Visible" />
+                   Visibility="{Binding Cards.Count, Converter={StaticResource ShowIfEmpty}}" />
 
+
+        <Grid Grid.Row="3" Grid.ColumnSpan="2" ShowGridLines="False">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Horizontal" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" >
+                <TextBlock  Text="Cards Found: " FontSize="21" Foreground="{StaticResource TextColor}"/>
+                <TextBlock  Text="{Binding Cards.Count}" FontSize="21" Foreground="{StaticResource TextColor}"/>
+            </StackPanel>
+            
+            <Button Grid.Column="1" BorderThickness="2" Margin="5" 
+                    Content="Check Details" FontSize="21" x:Name="Button" >
+            </Button>
+
+            <!--can't change the color of button when overing over-->
+            <!--<Button Grid.Column="1" Background="#202020" BorderBrush="{StaticResource TextColor}" BorderThickness="2" Margin="5" 
+                    Content="Check Details" Foreground="{StaticResource TextColor}" FontSize="21" x:Name="Button" >
+            </Button>-->
+
+            <TextBlock Grid.Column="2" Text="PLACEHOLDER" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource TextColor}"/>
+
+        </Grid>
+        
     </Grid>
 </Page>
