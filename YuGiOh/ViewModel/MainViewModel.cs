@@ -13,7 +13,8 @@ namespace YuGiOh.ViewModel
 {
     public class MainViewModel : ObservableObject
     {
-        
+        public DetailPage DetailPage = new DetailPage();
+
         public OverViewPage MainPage = new OverViewPage();
 
         private Page _currentPage;
@@ -31,6 +32,16 @@ namespace YuGiOh.ViewModel
             CurrentPage = MainPage;
         }
 
+        public void SwitchToDetail(BasicCard card)
+        {
+            (DetailPage.DataContext as DetailPageVM).CurrentCard = card;
+            CurrentPage = DetailPage;
+        }
+
+        public void SwitchToOverview()
+        {
+            CurrentPage = MainPage;
+        }
         
     }
 }

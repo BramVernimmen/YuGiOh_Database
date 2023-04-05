@@ -25,6 +25,15 @@ namespace YuGiOh.ViewModel
         }
 
 
+        private BasicCard _selectedCard;
+
+        public BasicCard SelectedCard
+        {
+            get { return _selectedCard; }
+            set { _selectedCard = value; }
+        }
+
+
 
 
         private List<string> _cardTypes;

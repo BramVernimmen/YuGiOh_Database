@@ -88,6 +88,11 @@
     </ApplicationDefinition>
     <Compile Include="Repository\CardsApiRepository.cs" />
     <Compile Include="Repository\ICardsRepository.cs" />
+    <Compile Include="ViewModel\DetailPageVM.cs" />
+    <Compile Include="View\Converters\InvisibleWhenNull.cs" />
+    <Compile Include="View\DetailPage.xaml.cs">
+      <DependentUpon>DetailPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\OverViewVM.cs" />
     <Compile Include="View\Converters\NullToInvisibleConverter.cs" />
@@ -106,6 +111,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\DetailPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\OverViewPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

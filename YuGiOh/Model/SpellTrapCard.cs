@@ -10,7 +10,7 @@ namespace YuGiOh.Model
     public class SpellTrapCard : BasicCard
     {
         [JsonProperty(PropertyName = "race")]
-        public string Type { get; set; } // sets the type of spell/trap
+        public string Typing { get; set; } // sets the type of spell/trap
 
     }
 }

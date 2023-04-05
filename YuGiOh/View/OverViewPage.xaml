@@ -46,31 +46,28 @@
         </StackPanel>
 
 
-        <ListBox Grid.Row="2" Grid.ColumnSpan="2" Background="#151515" ItemsSource="{Binding Cards}" 
+        <ListBox Grid.Row="2" Grid.ColumnSpan="2" Background="#151515" ItemsSource="{Binding Cards}" SelectedItem="{Binding SelectedCard}"
                  BorderThickness="2" x:Name="listBox" ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                  Margin="10">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid ShowGridLines="False" Margin="-10,0" MaxHeight="480" >
                         <StackPanel Orientation="Horizontal" Width="{Binding ElementName=listBox,Path=ActualWidth}" >
-                            
-                        
-                        <Image Grid.Column="0" Margin="10,5,10,10" Source="{Binding DisplayImageUrl}" MaxHeight="150" />
-                        <TextBlock Grid.Column="1" Text="{Binding Name}" Margin="10,0" Foreground="{StaticResource TextColor}" 
+
+
+                            <Image Grid.Column="0" Margin="10,5,10,10" Source="{Binding DisplayImageUrl}" MaxHeight="150" />
+                            <StackPanel Orientation="Vertical">
+                                
+                            <TextBlock Grid.Column="1" Text="{Binding Name}" Margin="10,10,0,0" Foreground="{StaticResource TextColor}" 
                                    VerticalAlignment="Center" FontSize="21" TextWrapping="WrapWithOverflow" />
+                                <TextBlock Grid.Column="1" Text="{Binding CardType, Mode=OneWay, StringFormat='Type: {0}'}" Margin="50,30,0,0" Foreground="{StaticResource TextColor}" 
+                                   VerticalAlignment="Center" FontSize="21" TextWrapping="WrapWithOverflow" />
+                                <TextBlock Grid.Column="1" Text="{Binding Archetype, Mode=OneWay, StringFormat='Archetype: {0}'}" Margin="50, 20,0,0" Foreground="{StaticResource TextColor}" 
+                                   VerticalAlignment="Center" FontSize="21" TextWrapping="WrapWithOverflow" />
+                            </StackPanel>
                         </StackPanel>
                         <Rectangle Fill="{StaticResource TextColor}" Height="2" VerticalAlignment="Bottom" />
                     </Grid>
-                    <!--<Grid ShowGridLines="False" Margin="10,0" MaxHeight="480" >
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto" />
-                            <ColumnDefinition Width="{Binding ElementName=test,Path=ActualWidth}" />
-                        </Grid.ColumnDefinitions>
-                        
-                        <Image Grid.Column="0" Margin="5" Source="{Binding DisplayImageUrl}" MaxHeight="150" />
-                        <TextBlock Grid.Column="1" Text="{Binding Name}" Margin="10,0" Foreground="{StaticResource TextColor}" 
-                                   VerticalAlignment="Center" FontSize="21" TextWrapping="WrapWithOverflow" />
-                    </Grid>-->
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
@@ -92,7 +89,7 @@
             </StackPanel>
             
             <Button Grid.Column="1" BorderThickness="2" Margin="5" 
-                    Content="Check Details" FontSize="21" x:Name="Button" >
+                    Content="Check Details" FontSize="21" x:Name="Button" Click="Check_Details" >
             </Button>
 
             <!--can't change the color of button when overing over-->

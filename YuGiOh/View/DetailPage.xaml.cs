@@ -12,31 +12,24 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using YuGiOh.Model;
 using YuGiOh.ViewModel;
 
 namespace YuGiOh.View
 {
     /// <summary>
-    /// Interaction logic for OverViewPage.xaml
+    /// Interaction logic for DetailPage.xaml
     /// </summary>
-    public partial class OverViewPage : Page
+    public partial class DetailPage : Page
     {
-        public OverViewPage()
+        public DetailPage()
         {
             InitializeComponent();
         }
 
-        private void Check_Details(object sender, RoutedEventArgs e)
+        private void Go_Back(object sender, RoutedEventArgs e)
         {
-
-            BasicCard card = (this.DataContext as OverViewVM).SelectedCard;
-
-            if (card == null)
-                return;
-
             MainViewModel vm = MainWindow.GetWindow(this).DataContext as MainViewModel;
-            vm.SwitchToDetail(card);
+            vm.SwitchToOverview();
         }
     }
 }
