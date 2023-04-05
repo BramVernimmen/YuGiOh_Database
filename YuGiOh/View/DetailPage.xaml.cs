@@ -31,5 +31,20 @@ namespace YuGiOh.View
             MainViewModel vm = MainWindow.GetWindow(this).DataContext as MainViewModel;
             vm.SwitchToOverview();
         }
+
+        private void HideButton(object sender, RoutedEventArgs e)
+        {
+            ImageButton.Visibility = Visibility.Hidden;
+
+            BigImageButton.Visibility = Visibility.Visible;
+
+        }
+
+        private void HideBigImage(object sender, RoutedEventArgs e)
+        {
+            ImageButton.Visibility = Visibility.Visible;
+
+            BigImageButton.Visibility = Visibility.Collapsed;
+        }
     }
 }

@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using YuGiOh.Model.Interfaces;
 
 namespace YuGiOh.Model
 {
-    public class MonsterCard : BasicCard
+    public class MonsterCard : BasicCard, IHasTyping
     {
         [JsonProperty(PropertyName = "atk")]
         public int Attack { get; set; }
@@ -31,9 +32,6 @@ namespace YuGiOh.Model
         [JsonProperty(PropertyName = "linkval")]
         public int LinkValue { get; set; }
 
-
-
-
-
+        public string Typing => Race;
     }
 }

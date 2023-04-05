@@ -10,7 +10,7 @@ using System.Windows.Data;
 namespace YuGiOh.View.Converters
 {
     //https://stackoverflow.com/questions/5123815/how-to-display-a-default-value-for-wpf-listbox-bound-to-an-empty-list
-    public class NullToInvisibleConverter : IValueConverter
+    public class InvisibleWhenEmpty : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

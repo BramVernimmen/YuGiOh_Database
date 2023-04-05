@@ -6,7 +6,7 @@
         xmlns:vm="clr-namespace:YuGiOh.ViewModel"
         xmlns:local="clr-namespace:YuGiOh"
         mc:Ignorable="d"
-        Title="YuGiOh DataBase" Height="790" Width="700" >
+        Title="YuGiOh DataBase" Height="850" Width="800" >
     <Window.DataContext>
         <vm:MainViewModel />
     </Window.DataContext>
