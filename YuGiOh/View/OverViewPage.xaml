@@ -111,8 +111,10 @@
             </Button>
 
             
-            <TextBlock Grid.Column="2" Text="PLACEHOLDER" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource TextColor}"/>
-
+            <Button Grid.Column="2" Margin="5" Style="{StaticResource OnHoverBlack}"
+                    Content="{Binding SwitchButtonText}" Command="{Binding SwitchRepositoryCommand}" FontSize="25"  >
+            </Button>
+            
         </Grid>
         
     </Grid>

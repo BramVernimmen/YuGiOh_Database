@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -34,7 +35,9 @@ namespace YuGiOh.ViewModel
         }
 
 
+        #region ------------- FILTERS -----------------------------------
 
+        
 
         private List<string> _cardTypes;
         public List<string> CardTypes {
@@ -84,30 +87,67 @@ namespace YuGiOh.ViewModel
             }
         }
 
-
+        #endregion
 
 
         private async void GetFilteredCardsAsync()
         {
-            var cardsTypes = await CardsApiRepository.GetCardsOfType(SelectedType);
-            var cardsArcheTypes = await CardsApiRepository.GetCardsFromArcheType(SelectedArcheType);
+            var cardsTypes = await CardsRepository.GetCardsOfType(SelectedType);
+            var cardsArcheTypes = await CardsRepository.GetCardsFromArcheType(SelectedArcheType);
 
             Cards = cardsTypes.Intersect(cardsArcheTypes).ToList();
         }
 
-        public ICardsRepository CardsApiRepository { get; set; } = new CardsApiRepository();
+
+        // create 2 new ones at startup so we don't have to recreate them
+        private CardsApiRepository _remoteRepos = new CardsApiRepository();
+        private CardsLocalRepository _localRepos = new CardsLocalRepository(); 
+
+        public ICardsRepository CardsRepository { get; set; }
+
+
+
+
+
+
+
+
+
+        private string _switchButtonText;
+
+        public string SwitchButtonText
+        {
+            get { return _switchButtonText; }
+            set { 
+                _switchButtonText = value;
+                OnPropertyChanged(nameof(SwitchButtonText));
+            }
+        }
+
+        public RelayCommand SwitchRepositoryCommand { get; private set; }
+
+
+
 
 
         public OverViewVM()
         {
-            GetCardsRemote();
+            CardsRepository = _remoteRepos;
+            SwitchRepositoryCommand = new RelayCommand(SwitchRepository);
+            GetCardsAsync();
+            SwitchButtonText = "Currently Online";
+
         }
 
-        private async void GetCardsRemote()
+
+
+
+
+        private async void GetCardsAsync()
         {
-            Cards = await CardsApiRepository.GetCardsAsync();
-            CardTypes = await CardsApiRepository.GetCardTypes();
-            ArcheTypes = await CardsApiRepository.GetArcheTypes();
+            Cards = await CardsRepository.GetCardsAsync();
+            CardTypes = await CardsRepository.GetCardTypes();
+            ArcheTypes = await CardsRepository.GetArcheTypes();
 
             // first set the fields
             _selectedType = "Select Type";
@@ -119,7 +159,30 @@ namespace YuGiOh.ViewModel
             // setting these will call a function
             // that function uses the fields as filter
             // if we hadn't set the fields first, null errors will be given
+        }
+
+        
+
+        void SwitchRepository()
+        {
+            if (CardsRepository.GetType() == typeof(CardsApiRepository))
+            {
+                // switch to offline
+                CardsRepository = _localRepos;
+                GetCardsAsync();
+                SwitchButtonText = "Currently Offline";
+            }
+            else
+            {
+                // switch to online
+                CardsRepository = _remoteRepos;
+                GetCardsAsync();
+                SwitchButtonText = "Currently Online";
+            }
+
+            
 
         }
+
     }
 }

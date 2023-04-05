@@ -88,7 +88,8 @@
     </ApplicationDefinition>
     <Compile Include="Model\Interfaces\IHasTyping.cs" />
     <Compile Include="Repository\CardsApiRepository.cs" />
-    <Compile Include="Repository\ICardsRepository.cs" />
+    <Compile Include="Repository\CardsLocalRepository.cs" />
+    <Compile Include="Repository\Interfaces\ICardsRepository.cs" />
     <Compile Include="ViewModel\DetailPageVM.cs" />
     <Compile Include="View\Converters\InvisibleWhenNull.cs" />
     <Compile Include="View\DetailPage.xaml.cs">

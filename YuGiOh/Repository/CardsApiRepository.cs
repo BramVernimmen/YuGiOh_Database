@@ -107,6 +107,9 @@ namespace YuGiOh.Repository
 
             var allCards = await GetCardsAsync();
 
+            if (type == null)
+                return allCards;
+
             if (type.Equals("Select Type"))
                 return allCards;
 
@@ -147,18 +150,21 @@ namespace YuGiOh.Repository
             return archetypes;
         }
 
-        public async Task<List<BasicCard>> GetCardsFromArcheType(string type)
+        public async Task<List<BasicCard>> GetCardsFromArcheType(string archetype)
         {
             List<BasicCard> cardsOfArcheType = new List<BasicCard>();
 
             var allCards = await GetCardsAsync();
 
-            if (type.Equals("Select Archetype"))
+            if (archetype == null)
+                return allCards;
+
+            if (archetype.Equals("Select Archetype"))
                 return allCards;
 
             foreach (var card in allCards)
             {
-                if (card.Archetype == type)
+                if (card.Archetype == archetype)
                     cardsOfArcheType.Add(card);
             }
 
