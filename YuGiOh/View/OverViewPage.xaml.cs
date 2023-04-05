@@ -38,5 +38,10 @@ namespace YuGiOh.View
             MainViewModel vm = MainWindow.GetWindow(this).DataContext as MainViewModel;
             vm.SwitchToDetail(card);
         }
+
+        private void listBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            Check_Details(sender, e);
+        }
     }
 }

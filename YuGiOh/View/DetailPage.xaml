@@ -40,6 +40,7 @@
             </Style.Triggers>
         </Style>
         
+        
     </Page.Resources>
     
     <Grid>
@@ -57,7 +58,7 @@
 
 
             <Button Grid.Column="1" Grid.Row="0" Content="Go Back" Click="Go_Back" 
-                VerticalAlignment="Top" HorizontalAlignment="Center" Margin="10" FontSize="{StaticResource TitleFontSize}"
+                VerticalAlignment="Top"  Margin="10" FontSize="{StaticResource TitleFontSize}"
                     Style="{StaticResource OnHoverBlack}" />
 
             <!--<Image Grid.Column="0" Grid.RowSpan="2" Margin="10" Source="{Binding CurrentCard.ImageInfoArray[0].ImageUrl}" />-->

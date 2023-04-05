@@ -16,6 +16,24 @@
     <Page.Resources>
         <conv:InvisibleWhenEmpty x:Key="ShowIfEmpty" />
         <SolidColorBrush x:Key="TextColor" Color="#DDDDDD" />
+        <Style x:Key="OnHoverBlack" TargetType="{x:Type Button}" >
+            <Setter Property="Background" Value="#151515"/>
+            <Setter Property="Foreground" Value="{StaticResource TextColor}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="Black" BorderThickness="2">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#303030"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Page.Resources>
     
     <Grid ShowGridLines="False" Background="#202020">
@@ -23,7 +41,7 @@
             <RowDefinition Height="1.3*"/>
             <RowDefinition Height="0.75*"/>
             <RowDefinition Height="5*"/>
-            <RowDefinition Height="0.61*"/>
+            <RowDefinition Height="0.55*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -48,7 +66,7 @@
 
         <ListBox Grid.Row="2" Grid.ColumnSpan="2" Background="#151515" ItemsSource="{Binding Cards}" SelectedItem="{Binding SelectedCard}"
                  BorderThickness="2" x:Name="listBox" ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                 Margin="10">
+                 Margin="10" MouseDoubleClick="listBox_MouseDoubleClick">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid ShowGridLines="False" Margin="-10,0" MaxHeight="480" >
@@ -88,15 +106,11 @@
                 <TextBlock  Text="{Binding Cards.Count}" FontSize="21" Foreground="{StaticResource TextColor}"/>
             </StackPanel>
             
-            <Button Grid.Column="1" BorderThickness="2" Margin="5" 
-                    Content="Check Details" FontSize="21" x:Name="Button" Click="Check_Details" >
+            <Button Grid.Column="1" Margin="5" Style="{StaticResource OnHoverBlack}"
+                    Content="Check Details" FontSize="25" x:Name="Button" Click="Check_Details" >
             </Button>
 
-            <!--can't change the color of button when overing over-->
-            <!--<Button Grid.Column="1" Background="#202020" BorderBrush="{StaticResource TextColor}" BorderThickness="2" Margin="5" 
-                    Content="Check Details" Foreground="{StaticResource TextColor}" FontSize="21" x:Name="Button" >
-            </Button>-->
-
+            
             <TextBlock Grid.Column="2" Text="PLACEHOLDER" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource TextColor}"/>
 
         </Grid>

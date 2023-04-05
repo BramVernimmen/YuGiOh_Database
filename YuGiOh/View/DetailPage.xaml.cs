@@ -45,6 +45,7 @@ namespace YuGiOh.View
             ImageButton.Visibility = Visibility.Visible;
 
             BigImageButton.Visibility = Visibility.Collapsed;
+
         }
     }
 }
