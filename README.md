@@ -51,10 +51,21 @@ Using Regex, this should be fairly easy and since the database is so huge, this 
 
 
 # Known Problems
+
+The currently biggest problem, when all cards are loaded and no filters are used, when you scroll too fast in the OverviewPage, select a card and check their details.
+Then click the image to fullscreen it, at times it will never load the image. </br>
+This might be because of the sheer amount of cards. Because when using a filter this doesn't seem to happen... </br>
+
+Just keep that in mind when scrolling through this program. </br>
+
+</br>
+
 Currently the DetailPage will check every Property of both card classes. </br>
 This will give Binding failures for Spell/Trap cards since these don't have the Attack, Defense,... property. </br>
 I tried finding a solution for this, but sadly couldn't find anything. </br>
 As these are mere warnings, I'm not going to try and fix this in the near future.
+
+</br>
 
 Something else I noticed the hard way is that I really rely on the API itselves.</br>
 As of writing this (15 april 2023) a new card that was recently announced got added to the database. </br>
