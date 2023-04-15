@@ -17,6 +17,7 @@
     <Page.Resources>
         <conv:InvisibleWhenNull x:Key="CollapseIfNull" />
         <SolidColorBrush x:Key="TextColor" Color="#DDDDDD" />
+        <SolidColorBrush x:Key="InfoColor" Color="#629263" />
         <system:Double x:Key="FontSize">21</system:Double>
         <system:Double x:Key="NameFontSize">26</system:Double>
         <system:Double x:Key="TitleFontSize">28</system:Double>
@@ -72,76 +73,143 @@
                 <!-- Card Name -->
                 <TextBlock x:Name="CardName" Text="{Binding CurrentCard.Name, FallbackValue=This_Is_A_Test_Name}" 
                            FontSize="{StaticResource NameFontSize}" Foreground="{StaticResource TextColor}" 
-                           Margin="15, 0, 10, 0" TextWrapping="WrapWithOverflow" />
-                <Rectangle Fill="{StaticResource TextColor}" Height="1" 
-                           Width="{Binding ElementName=CardName, Path=ActualWidth}"  Margin="15, 0, 5, 25" />
+                           Margin="15, 0, 10, 0" TextWrapping="WrapWithOverflow" FontWeight="Bold" />
+                <Rectangle Fill="{StaticResource InfoColor}" Height="2" 
+                           Margin="15, 0, 5, 25" />
                 
                 
                 <!-- Card Type -->
-                <TextBlock x:Name="Type" Text="{Binding CurrentCard.CardType, FallbackValue=Card_Type, Mode=OneWay, StringFormat='Type: {0}'}" 
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <!-- how I used to do it before, this will lock you into 1 single color hence why I removed it -->
+                    <!-- keeping it because I like the StringFormat thingy -->
+                    <!--Text="{Binding CurrentCard.CardType, FallbackValue=Card_Type, Mode=OneWay, StringFormat='Type: {0}'}"-->
+                    <TextBlock Grid.Column="0" x:Name="Type" Text="Type:" 
+                           FontSize="{StaticResource FontSize}" Foreground="{StaticResource InfoColor}" 
+                           Margin="15, 0, 5, 0" TextWrapping="WrapWithOverflow" FontWeight="Bold"/>
+                    <TextBlock Grid.Column="1" x:Name="Type_Value" Text="{Binding CurrentCard.CardType, FallbackValue=Card_Type}" 
                            FontSize="{StaticResource FontSize}" Foreground="{StaticResource TextColor}" 
-                           Margin="15, 0, 5, 0" TextWrapping="WrapWithOverflow"/>
-                <Rectangle Fill="{StaticResource TextColor}" Height="1" 
-                           Width="{Binding ElementName=Type, Path=ActualWidth}"  Margin="15, 0, 5, 10" />
+                           Margin="0, 0, 5, 0" TextWrapping="WrapWithOverflow"/>
+                </Grid>
+                <Rectangle Fill="{StaticResource InfoColor}" Height="2" Margin="15, 0, 5, 10" />
 
                 
                 <!-- ArcheType -->
-                <TextBlock x:Name="ArcheType" Text="{Binding CurrentCard.Archetype, FallbackValue=N/A, Mode=OneWay, StringFormat='Archetype: {0}'}" 
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock x:Name="ArcheType" Text="Archetype:" 
+                           FontSize="{StaticResource FontSize}" Foreground="{StaticResource InfoColor}" 
+                           Margin="15, 10, 5, 0" TextWrapping="WrapWithOverflow"  FontWeight="Bold"/>
+                    <TextBlock Grid.Column="1" x:Name="ArcheType_Value" Text="{Binding CurrentCard.Archetype, FallbackValue=N/A}" 
                            FontSize="{StaticResource FontSize}" Foreground="{StaticResource TextColor}" 
-                           Margin="15, 10, 5, 0" TextWrapping="WrapWithOverflow"/>
-                <Rectangle Fill="{StaticResource TextColor}" Height="1" 
-                           Width="{Binding ElementName=ArcheType, Path=ActualWidth}"  Margin="15, 0, 5, 10" />
+                           Margin="0, 10, 5, 0" TextWrapping="WrapWithOverflow"/>
+                </Grid>
+                <Rectangle Fill="{StaticResource InfoColor}" Height="2" Margin="15, 0, 5, 10" />
             
                 <!-- Typing -->
-                <TextBlock x:Name="Typing" Text="{Binding CurrentCard.Typing, FallbackValue=No_Typing, Mode=OneWay, StringFormat='Typing: {0}'}" 
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock x:Name="Typing" Text="Typing:" 
+                           FontSize="{StaticResource FontSize}" Foreground="{StaticResource InfoColor}" 
+                           Margin="15, 10, 5, 0" TextWrapping="WrapWithOverflow" FontWeight="Bold"/>
+                    <TextBlock Grid.Column="1" x:Name="Typing_Value" Text="{Binding CurrentCard.Typing, FallbackValue=No_Typing}" 
                            FontSize="{StaticResource FontSize}" Foreground="{StaticResource TextColor}" 
-                           Margin="15, 10, 5, 0" TextWrapping="WrapWithOverflow"/>
-                <Rectangle Fill="{StaticResource TextColor}" Height="1" 
-                           Width="{Binding ElementName=Typing, Path=ActualWidth}"  Margin="15, 0, 5, 10" />
+                           Margin="0, 10, 5, 0" TextWrapping="WrapWithOverflow"/>
+                </Grid>
+                <Rectangle Fill="{StaticResource InfoColor}" Height="2" Margin="15, 0, 5, 10" />
                 
                 <!-- Monster card exclusives -->
 
                 <!-- Attribute -->
-                <TextBlock x:Name="Attribute" Text="{Binding CurrentCard.Attribute, FallbackValue=No_Attribute, Mode=OneWay, StringFormat='Attribute: {0}'}" 
-                           FontSize="{StaticResource FontSize}" Foreground="{StaticResource TextColor}" 
-                           Margin="15, 10, 5, 0" TextWrapping="WrapWithOverflow"
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock x:Name="Attribute" Text="Attribute:" 
+                           FontSize="{StaticResource FontSize}" Foreground="{StaticResource InfoColor}" 
+                           Margin="15, 10, 5, 0" TextWrapping="WrapWithOverflow" FontWeight="Bold"
                            Visibility="{Binding CurrentCard.Attribute, Converter={StaticResource CollapseIfNull}, FallbackValue=Collapsed}"
                            />
-                <Rectangle Fill="{StaticResource TextColor}" Height="1" 
-                           Width="{Binding ElementName=Attribute, Path=ActualWidth}"  Margin="15, 0, 5, 10"
+                    <TextBlock Grid.Column="1" x:Name="Attribute_Value" Text="{Binding CurrentCard.Attribute, FallbackValue=No_Attribute}" 
+                           FontSize="{StaticResource FontSize}" Foreground="{StaticResource TextColor}" 
+                           Margin="0, 10, 5, 0" TextWrapping="WrapWithOverflow"
+                           Visibility="{Binding CurrentCard.Attribute, Converter={StaticResource CollapseIfNull}, FallbackValue=Collapsed}"
+                           />
+                </Grid>
+                <Rectangle Fill="{StaticResource InfoColor}" Height="2"  Margin="15, 0, 5, 10"
                            Visibility="{Binding ElementName=Attribute, Path=Visibility}"
                            />
 
                 <!-- Level -->
-                <TextBlock x:Name="Level" Text="{Binding CurrentCard.Level, FallbackValue=No_Level, Mode=OneWay, StringFormat='Level: {0}'}" 
-                           FontSize="{StaticResource FontSize}" Foreground="{StaticResource TextColor}" 
-                           Margin="15, 10, 5, 0" TextWrapping="WrapWithOverflow"
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock x:Name="Level" Text="Level:" 
+                           FontSize="{StaticResource FontSize}" Foreground="{StaticResource InfoColor}" 
+                           Margin="15, 10, 5, 0" TextWrapping="WrapWithOverflow" FontWeight="Bold"
                            Visibility="{Binding CurrentCard.Level, Converter={StaticResource CollapseIfNull}, FallbackValue=Collapsed}"
                            />
-                <Rectangle Fill="{StaticResource TextColor}" Height="1" 
-                           Width="{Binding ElementName=Level, Path=ActualWidth}"  Margin="15, 0, 5, 10"
+                    <TextBlock Grid.Column="1" x:Name="Level_Value" Text="{Binding CurrentCard.Level, FallbackValue=No_Level}" 
+                           FontSize="{StaticResource FontSize}" Foreground="{StaticResource TextColor}" 
+                           Margin="0, 10, 5, 0" TextWrapping="WrapWithOverflow"
+                           Visibility="{Binding CurrentCard.Level, Converter={StaticResource CollapseIfNull}, FallbackValue=Collapsed}"
+                           />
+                </Grid>
+                <Rectangle Fill="{StaticResource InfoColor}" Height="2" Margin="15, 0, 5, 10"
                            Visibility="{Binding ElementName=Level,Path=Visibility}"
                            />
 
                 <!-- Attack -->
-                <TextBlock x:Name="Attack" Text="{Binding CurrentCard.Attack, FallbackValue=No_Attack, Mode=OneWay, StringFormat='Attack: {0}'}" 
-                           FontSize="{StaticResource FontSize}" Foreground="{StaticResource TextColor}" 
-                           Margin="15, 10, 5, 0" TextWrapping="WrapWithOverflow"
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock x:Name="Attack" Text="Attack:" 
+                           FontSize="{StaticResource FontSize}" Foreground="{StaticResource InfoColor}" 
+                           Margin="15, 10, 5, 0" TextWrapping="WrapWithOverflow" FontWeight="Bold"
                            Visibility="{Binding CurrentCard.Attack, Converter={StaticResource CollapseIfNull}, FallbackValue=Collapsed}"
                            />
-                <Rectangle Fill="{StaticResource TextColor}" Height="1" 
-                           Width="{Binding ElementName=Attack, Path=ActualWidth}"  Margin="15, 0, 5, 10"
+                    <TextBlock Grid.Column="1" x:Name="Attack_Value" Text="{Binding CurrentCard.Attack, FallbackValue=No_Attack}" 
+                           FontSize="{StaticResource FontSize}" Foreground="{StaticResource TextColor}" 
+                           Margin="0, 10, 5, 0" TextWrapping="WrapWithOverflow"
+                           Visibility="{Binding CurrentCard.Attack, Converter={StaticResource CollapseIfNull}, FallbackValue=Collapsed}"
+                           />
+                </Grid>
+                <Rectangle Fill="{StaticResource InfoColor}" Height="2" Margin="15, 0, 5, 10"
                            Visibility="{Binding ElementName=Attack, Path=Visibility}"
                            />
 
                 <!-- Defense -->
-                <TextBlock x:Name="Defense" Text="{Binding CurrentCard.Defense, FallbackValue=No_Defense, Mode=OneWay, StringFormat='Defense: {0}'}" 
-                           FontSize="{StaticResource FontSize}" Foreground="{StaticResource TextColor}" 
-                           Margin="15, 10, 5, 0" TextWrapping="WrapWithOverflow"
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock x:Name="Defense" Text="Defense:" 
+                           FontSize="{StaticResource FontSize}" Foreground="{StaticResource InfoColor}" 
+                           Margin="15, 10, 5, 0" TextWrapping="WrapWithOverflow" FontWeight="Bold"
                            Visibility="{Binding CurrentCard.Defense, Converter={StaticResource CollapseIfNull}, FallbackValue=Collapsed}"
                            />
-                <Rectangle Fill="{StaticResource TextColor}" Height="1" 
-                           Width="{Binding ElementName=Defense, Path=ActualWidth}"  Margin="15, 0, 5, 10"
+                    <TextBlock Grid.Column="1" x:Name="Defense_Value" Text="{Binding CurrentCard.Defense, FallbackValue=No_Defense}" 
+                           FontSize="{StaticResource FontSize}" Foreground="{StaticResource TextColor}" 
+                           Margin="0, 10, 5, 0" TextWrapping="WrapWithOverflow"
+                           Visibility="{Binding CurrentCard.Defense, Converter={StaticResource CollapseIfNull}, FallbackValue=Collapsed}"
+                           />
+                </Grid>
+                <Rectangle Fill="{StaticResource InfoColor}" Height="2" Margin="15, 0, 5, 10"
                            Visibility="{Binding ElementName=Defense, Path=Visibility}"
                            />
                 
@@ -153,12 +221,11 @@
             
             
             <!-- Description -->
-            <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Margin="10, 0, 10, 0" Orientation="Vertical">
+            <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Margin="10, 10, 10, 0" Orientation="Vertical">
                 
                 <TextBlock  x:Name="Desc" Text="Description" FontSize="{StaticResource FontSize}" 
-                    Foreground="{StaticResource TextColor}" />
-                <Rectangle Grid.Row="3" Grid.Column="0" Fill="{StaticResource TextColor}" Height="1" 
-                           Width="{Binding ElementName=Desc, Path=ActualWidth}"  />
+                    Foreground="{StaticResource InfoColor}" FontWeight="Bold" />
+                <Rectangle Grid.Row="3" Grid.Column="0" Fill="{StaticResource InfoColor}" Height="2" />
                 
                 <TextBlock TextWrapping="WrapWithOverflow" Margin="0, 5, 15, 0"
                 FontSize="{StaticResource DescFontSize}" Foreground="{StaticResource TextColor}"

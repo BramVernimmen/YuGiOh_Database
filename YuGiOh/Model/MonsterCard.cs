@@ -10,10 +10,15 @@ namespace YuGiOh.Model
 {
     public class MonsterCard : BasicCard, IHasTyping
     {
+        // making atk and def nullable
+        // 15 april 2023;
+        // Colorless, Chaos King of Dark World is the only card with atk"null" and def"null"
+        // doing this to prevent everything else
+
         [JsonProperty(PropertyName = "atk")]
-        public int Attack { get; set; }
+        public int? Attack { get; set; }
         [JsonProperty(PropertyName = "def")]
-        public int Defense { get; set; }
+        public int? Defense { get; set; }
 
         [JsonProperty(PropertyName = "level")]
         public int Level { get; set; }
